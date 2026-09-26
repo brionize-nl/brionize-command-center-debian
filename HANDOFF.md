@@ -32,6 +32,65 @@ teruggeven aan de mens bij:
 Voor gewone implementatiedetails, scripts schrijven, bugs oplossen,
 commits maken: gewoon doorgaan.
 
+## Toegang en werkwijze die je nodig hebt om dit zelfstandig te bouwen
+Dit is geen chatgesprek waarin je alleen tekst/code voorstelt — je hebt
+**daadwerkelijke uitvoeringstoegang** nodig om dit autonoom te bouwen:
+
+- **Terminal/CLI-toegang** (zoals Claude Code, of een gelijkwaardige agent
+  met shell-toegang) — je moet zelf commando's kunnen uitvoeren, niet alleen
+  code kunnen voorstellen die de mens los moet plakken/uitvoeren.
+- **Git, geïnstalleerd en werkend.**
+- **GitHub CLI (`gh`) of gelijkwaardig, geauthenticeerd** op het GitHub-
+  account van de gebruiker — nodig om zelf een repository aan te maken,
+  te pushen, en (via GitHub Actions of een gelijkwaardige CI-dienst) builds
+  te starten en de uitkomst te controleren.
+- Als een van deze ontbreekt: **vraag de gebruiker dit eerst te regelen**
+  (bijvoorbeeld: "log in met `gh auth login`") vóórdat je verdergaat — geef
+  dit niet stilzwijgend op en probeer niet te bouwen zonder deze toegang.
+
+**Concrete werkwijze, gebaseerd op wat in het LFS/BLFS-zusterproject
+bewezen werkte:**
+1. Maak een lokale projectmap en initialiseer een git-repository
+   (`git init`), met een lokale (niet-globale) commit-identiteit op naam
+   van de gebruiker.
+2. Maak zelf, via `gh repo create`, een **publieke** GitHub-repository aan
+   (tenzij de gebruiker bij Stap 0/1 uitdrukkelijk privé koos) — publiek
+   geeft onbeperkte, gratis CI-minuten tijdens de bouwfase; leg deze keuze
+   uit aan de gebruiker in plaats van hem stilzwijgend te maken als hij er
+   niet naar gevraagd is.
+3. Schrijf de `live-build`-configuratie/scripts lokaal, commit, push.
+4. **Bouw en test uitsluitend via CI (GitHub Actions of gelijkwaardig)**,
+   nooit lokaal op de machine van de gebruiker — zie de
+   Efficiëntie-discipline hieronder voor de reden (dit voorkomt dat een
+   zware ISO-build de eigen computer van de gebruiker vastzet, wat in het
+   zusterproject een keer echt fout ging).
+5. Controleer de daadwerkelijke CI-uitkomst (niet aannemen dat iets werkt)
+   vóórdat je verder gaat naar de volgende stap of dit als "klaar"
+   documenteert.
+
+## Re-entry-protocol — als een NIEUWE sessie dit oppakt
+Dit project kan op elk moment door een andere sessie, een andere AI, of
+dezelfde AI na een lange onderbreking worden hervat. **Bouw dan nooit
+blind verder op wat je "denkt te herinneren".** Bij elke hervatting, vóór
+de eerste wijzigende actie:
+
+1. Lees dit HANDOFF.md volledig, opnieuw — ook als je denkt dit project al
+   te kennen.
+2. Lees PROGRESS.md voor de laatst vastgelegde status en eerstvolgende
+   stap.
+3. Lees BLUEPRINT.md voor de actuele architectuur- en personalisatiekeuzes
+   (deze kunnen zijn gewijzigd sinds een eerdere sessie).
+4. Controleer de **daadwerkelijke, actuele staat**, niet wat de documenten
+   beweren: `git log` / `git status` voor de laatste commits en of de
+   werkmap schoon is, en de status van de laatste CI-run (geslaagd,
+   gefaald, of nog bezig) vóórdat je verdergaat.
+5. Pas als dat allemaal overeenstemt: ga verder vanaf de eerstvolgende stap
+   die uit die controle blijkt — niet vanaf een aanname.
+
+Als PROGRESS.md/BLUEPRINT.md het niet eens lijken te zijn met wat je in de
+repo/CI aantreft: benoem dat conflict expliciet aan de gebruiker in plaats
+van te gokken welke waarheid klopt.
+
 ## Niet-onderhandelbare regels, ongeacht welke AI dit uitvoert
 - **Nooit hardcoded secrets, wachtwoorden, API-keys of persoonlijke
   gegevens in de repository** — ook niet tijdelijk. Alleen `.env.example`
