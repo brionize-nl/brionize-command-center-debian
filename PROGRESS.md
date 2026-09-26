@@ -1,19 +1,21 @@
 # PROGRESS — reisverslag
 
-## 2026-09-22
-- Project gestart: `brionize-command-center-debian`. Lege map, geen git-repo,
-  geen code — alleen BLUEPRINT.md, PROGRESS.md en HANDOFF.md staan er.
-- Reden: parallel, alternatief bouwtraject naast het bestaande LFS/BLFS-
-  zusterproject (`~/Projecten/brionize-command-center`), dat hetzelfde
-  eindproduct nastreeft maar via een bestaande Debian-basis + `live-build` +
-  Calamares in plaats van alles vanaf broncode compileren. Zie BLUEPRINT.md
-  voor de volledige onderbouwing en architectuur.
+## 2026-09-26
+- BLUEPRINT.md en HANDOFF.md volledig herzien tot een complete, in-één-keer
+  bruikbare specificatie — inclusief alle UX-inzichten uit het originele
+  LFS/BLFS-bouwtraject (tegel-manager, organische constellaties,
+  multi-monitor-gedrag, hardware-bewuste tegel-limiet, FUI-content-tegels,
+  generieke PWA-toevoeging, eigen icoonthema).
+- **Bewust losgekoppeld:** het gekozen thema/de esthetiek ("The Machine" /
+  Person of Interest) uit het origineel is nu een **voorbeeld**, geen
+  vaste eis — BLUEPRINT.md's "Stap 0" vraagt dit expliciet uit bij wie dit
+  ook oppakt, zodat een ander eigen stijl (bijvoorbeeld Star Wars) net zo
+  goed gekozen kan worden zonder het document te hoeven herschrijven.
 - **Status: niets gebouwd, geen enkele stap uitgevoerd.** Dit is een
-  handoff-startpunt, bedoeld om door een andere AI (Mistral) zelfstandig
-  opgepakt te worden.
-- **Eerstvolgende stap** (voor wie dit oppakt): git-repo initialiseren,
-  officiële Debian Live Manual raadplegen voor de exacte `live-build`-
-  configuratiestructuur, een minimale eerste build opzetten (kaal
-  basissysteem, nog geen desktop/devstack) en die als eerste bewijs
-  valideren vóór de volgende fase (desktop-laag) wordt toegevoegd —
-  zelfde "eerst bewijs, dan verder"-discipline als het zusterproject.
+  handoff-startpunt, bedoeld om door een andere AI/sessie zelfstandig
+  opgepakt te worden (bijvoorbeeld door Brionize's neef, via zijn eigen
+  Claude).
+- **Eerstvolgende stap** (voor wie dit oppakt): eerst de personalisatie-
+  vragen uit BLUEPRINT.md Stap 0 stellen en verwerken, dán pas beginnen met
+  de `live-build`-basisconfiguratie (Bouwfase 1) als eerste, klein te
+  valideren stap.
